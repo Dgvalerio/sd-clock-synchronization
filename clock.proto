@@ -2,23 +2,26 @@ syntax = "proto3";
 
 package clock;
 
-service ClockSync {
-    rpc GetTime(TimeRequest) returns (TimeResponse) {}
-    rpc AdjustTime(AdjustRequest) returns (AdjustResponse) {}
+service ClockService {
+    // Pega a diferença
+    rpc GetTimeOffset(TimeOffsetRequest) returns (TimeOffsetResponse);
+    // Pega o tempo sincronizado
+    rpc GetSynchronizedTime(SynchronizedTimeRequest) returns (SynchronizedTimeResponse);
 }
 
-message TimeRequest {
-    int64 client_time = 1;
+message TimeOffsetRequest {
+    double timestamp = 1;  // Timestamp
+    string client_id = 2;  // Identificador do cliente
 }
 
-message TimeResponse {
-    int64 server_time = 1;
+message TimeOffsetResponse {
+    double offset = 1;
 }
 
-message AdjustRequest {
-    int64 adjustment = 1;
+message SynchronizedTimeRequest {
+    string client_id = 1;  // Identificador do cliente
 }
 
-message AdjustResponse {
-    bool success = 1;
+message SynchronizedTimeResponse {
+    double time = 1;  // Tempo ajustado
 }

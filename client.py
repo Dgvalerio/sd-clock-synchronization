@@ -10,10 +10,7 @@ import clock_pb2_grpc
 def get_time_offset(stub, client_id):
     local_time = time.time()
 
-    print(sys.argv, len(sys.argv), len(sys.argv) == 3)
-
     if len(sys.argv) == 3:
-        print(sys.argv[2])
         local_time += int(sys.argv[2])
 
     request = clock_pb2.TimeOffsetRequest(timestamp=local_time, client_id=client_id)
